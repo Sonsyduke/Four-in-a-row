@@ -13,7 +13,6 @@ class Space {
       "http://www.w3.org/2000/svg",
       "circle"
     );
-
     svgSpace.setAttributeNS(null, "id", this.id);
     svgSpace.setAttributeNS(null, "cx", this.x * this.diameter + this.radius);
     svgSpace.setAttributeNS(null, "cy", this.y * this.diameter + this.radius);
@@ -21,6 +20,26 @@ class Space {
     svgSpace.setAttributeNS(null, "fill", "black");
     svgSpace.setAttributeNS(null, "stroke", "none");
 
-    document.querySelector("#mask").appendChild(svgSpace);
+    document.getElementById("mask").appendChild(svgSpace);
+  }
+
+  /**
+   * Updates space to reflect a token has been dropped into it.
+   * @params {Object} token - The dropped token
+   */
+  mark(token) {
+    this.token = token;
+  }
+
+  /**
+   * Checks if space has an associated token to find it's owner
+   * @returns {(null | Object)} Returns null or the owner object of the space's associated token.
+   */
+  get owner() {
+    if (this.token === null) {
+      return null;
+    } else {
+      return this.token.owner;
+    }
   }
 }
